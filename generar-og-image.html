@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar OG Image</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5f1e8; font-family: 'Montserrat', sans-serif;">
+    <div style="text-align: center;">
+        <h1 style="margin-bottom: 20px;">Generador de Imagen para WhatsApp</h1>
+        <canvas id="canvas" style="border: 1px solid #ccc; margin: 20px 0;"></canvas>
+        <br>
+        <button onclick="descargar()" style="padding: 15px 40px; background: #c9a961; color: white; border: none; font-size: 16px; cursor: pointer; border-radius: 5px;">
+            Descargar og-image.png
+        </button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Tamaño para Open Graph
+            canvas.width = 1200;
+            canvas.height = 630;
+            
+            // Fondo
+            ctx.fillStyle = '#f5f1e8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Anillos entrelazados (misma proporción que favicon)
+            const centerX = canvas.width / 2;
+            const centerY = 315;
+            const ringRadius = 80;
+            const separation = 96; // Proporción del favicon escalada
+            
+            // Anillo izquierdo
+            ctx.strokeStyle = '#c9a961';
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.arc(centerX - separation/2, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Anillo derecho
+            ctx.beginPath();
+            ctx.arc(centerX + separation/2, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Texto - Nombres
+            ctx.fillStyle = '#2a2a2a';
+            ctx.font = '72px "Great Vibes", cursive';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lucre y Nico', centerX, 480);
+            
+            // Texto - Fecha
+            ctx.font = '32px "Montserrat", sans-serif';
+            ctx.letterSpacing = '8px';
+            ctx.fillText('06 | 03 | 26', centerX, 540);
+        };
+        
+        function descargar() {
+            const canvas = document.getElementById('canvas');
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'og-image.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                alert('¡Imagen descargada! Ahora sube og-image.png a tu carpeta de invitación');
+            });
+        }
+    </script>
+</body>
+</html>
