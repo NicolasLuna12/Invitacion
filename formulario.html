@@ -411,7 +411,7 @@
 
                     <div class="form-group">
                         <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" name="telefono">
+                        <input type="tel" id="telefono" name="telefono" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
                     </div>
 
                     <div class="form-group form-group-full">
@@ -454,12 +454,6 @@
 
     <!-- Right Panel -->
     <div class="side-panel side-panel-right">
-        <div class="panel-subtitle">Civil</div>
-        <div class="divider"></div>
-        <div class="panel-info">CPC Nº 14</div>
-        <div class="panel-info">Barrio Jardín</div>
-        <div class="panel-info">11:00 hs</div>
-        <div class="divider"></div>
         <div class="panel-subtitle">¡Festejo!</div>
         <div class="panel-info">A confirmar</div>
     </div>
@@ -498,7 +492,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="acomp-telefono-${i}">Teléfono</label>
-                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}">
+                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
                             </div>
                         </div>
                     `;
@@ -506,6 +500,30 @@
                 }
             }
         });
+
+        // Validación de campos de teléfono - solo números y caracteres permitidos
+        function validarTelefono(input) {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9+\-\s()]/g, '');
+            });
+        }
+
+        // Aplicar validación al campo de teléfono principal
+        validarTelefono(document.getElementById('telefono'));
+
+        // Observar cambios en el contenedor de acompañantes para validar nuevos campos
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        const telefonoInputs = node.querySelectorAll('input[type="tel"]');
+                        telefonoInputs.forEach(validarTelefono);
+                    }
+                });
+            });
+        });
+
+        observer.observe(acompanantesContainer, { childList: true, subtree: true });
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();

@@ -978,10 +978,10 @@
 
         .modal-contenido {
             position: relative;
-            max-width: 380px;
+            max-width: 480px;
             max-height: 90vh;
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 0.4s ease-out;
@@ -1228,7 +1228,7 @@
 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono">
+                    <input type="tel" id="telefono" name="telefono" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
                 </div>
 
                 <div class="form-group form-group-full">
@@ -1274,14 +1274,13 @@
 
     <!-- Right Panel -->
     <div class="form-side-panel form-side-right">
-        <div class="panel-subtitle-form">Civil</div>
+        <div class="panel-title-form">Lucre y Nico</div>
         <div class="divider"></div>
-        <div class="panel-info-form">CPC Nº 14</div>
-        <div class="panel-info-form">Barrio Jardín</div>
-        <div class="panel-info-form">11:00 hs</div>
+        <div class="panel-date-form">
+            06<span class="date-separator-form"></span>03<span class="date-separator-form"></span>26
+        </div>
         <div class="divider"></div>
-        <div class="panel-subtitle-form">¡Festejo!</div>
-        <div class="panel-info-form">A confirmar</div>
+        <div class="panel-subtitle-form">Nos Casamos</div>
     </div>
 </div>
 </div>
@@ -1506,7 +1505,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="acomp-telefono-${i}">Teléfono</label>
-                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}">
+                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
                             </div>
                         </div>
                         ${botonesHTML}
@@ -1593,6 +1592,30 @@
             }
         }
 
+        // Validación de campos de teléfono - solo números y caracteres permitidos
+        function validarTelefono(input) {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9+\-\s()]/g, '');
+            });
+        }
+
+        // Aplicar validación al campo de teléfono principal
+        validarTelefono(document.getElementById('telefono'));
+
+        // Observar cambios en el contenedor de acompañantes para validar nuevos campos
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        const telefonoInputs = node.querySelectorAll('input[type="tel"]');
+                        telefonoInputs.forEach(validarTelefono);
+                    }
+                });
+            });
+        });
+
+        observer.observe(acompanantesContainer, { childList: true, subtree: true });
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -1669,6 +1692,14 @@
         function mostrarModalTarjeta() {
             imagenTarjeta.src = 'image.png';
             modalTarjeta.classList.add('show');
+            
+            // Cargar la imagen y convertirla a blob para descargar/compartir
+            fetch('image.png')
+                .then(response => response.blob())
+                .then(blob => {
+                    tarjetaBlob = blob;
+                })
+                .catch(error => console.error('Error al cargar la imagen:', error));
         }
 
         // Cerrar modal
@@ -1687,16 +1718,12 @@
 
         // Descargar tarjeta desde el modal
         descargarBtn.addEventListener('click', function() {
-            if (tarjetaBlob) {
-                const url = URL.createObjectURL(tarjetaBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Invitacion-Lucre-y-Nico.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
+            const a = document.createElement('a');
+            a.href = 'image.png';
+            a.download = 'Invitacion-Lucre-y-Nico.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         });
 
         // Compartir tarjeta
