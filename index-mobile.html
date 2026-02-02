@@ -1027,28 +1027,45 @@
         }
 
         .modal-contenido {
+        .modal-contenido {
             position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-            background: white;
-            padding: 20px;
+            background-color: #f5f1e8;
+            padding: 30px;
             border-radius: 10px;
+            max-width: 1000px;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 30px;
+            align-items: flex-start;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 0.4s ease-out;
         }
 
+        .modal-imagen-container {
+            flex: 0 0 480px;
+            max-width: 480px;
+        }
+
         .modal-imagen {
             width: 100%;
-            max-width: 600px;
             height: auto;
-            display: block;
             border-radius: 5px;
+        }
+
+        .modal-info-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
         }
 
         .modal-cerrar {
             position: absolute;
-            top: -15px;
-            right: -15px;
+            top: 5px;
+            right: 5px;
             width: 40px;
             height: 40px;
             background: #c9a961;
@@ -1061,6 +1078,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1001;
+        }
+            justify-content: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -1071,17 +1091,15 @@
 
         .modal-botones {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 12px;
+            flex-direction: column;
         }
 
         .modal-boton {
             font-family: 'Montserrat', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            padding: 12px 30px;
+            font-size: 14px;
+            letter-spacing: 2.5px;
+            padding: 16px 28px;
             background-color: #c9a961;
             color: white;
             border: 2px solid #c9a961;
@@ -1089,6 +1107,7 @@
             transition: all 0.3s ease;
             border-radius: 5px;
             font-weight: 500;
+            width: 100%;
         }
 
         .modal-boton:hover {
@@ -1096,10 +1115,79 @@
             color: #c9a961;
         }
 
+        .modal-imagen-container {
+            flex: 0 0 400px;
+            max-width: 400px;
+        }
+
+        .modal-info-container {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-info-pago {
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #c9a961;
+        }
+
+        .modal-info-pago h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2.5px;
+            color: #2a2a2a;
+            margin-bottom: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .modal-dato {
+            margin: 12px 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: #2a2a2a;
+            word-break: break-all;
+        }
+
+        .modal-dato strong {
+            font-weight: 600;
+            color: #c9a961;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .modal-dato span {
+            user-select: all;
+            cursor: text;
+            padding: 12px 14px;
+            background-color: #f5f1e8;
+            border-radius: 5px;
+            display: block;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
         @media (max-width: 768px) {
             .modal-contenido {
                 max-width: 95%;
                 padding: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-imagen-container {
+                min-width: auto;
+            }
+
+            .modal-info-container {
+                flex: 1;
+                width: 100%;
+                align-items: center;
             }
 
             .modal-imagen {
@@ -1338,10 +1426,25 @@
     <div class="modal-tarjeta" id="modalTarjeta">
         <div class="modal-contenido">
             <button class="modal-cerrar" id="cerrarModal">&times;</button>
-            <img src="" alt="Tarjeta de Invitación" class="modal-imagen" id="imagenTarjeta">
-            <div class="modal-botones">
-                <button class="modal-boton" id="descargarTarjeta">📥 DESCARGAR</button>
-                <button class="modal-boton" id="compartirTarjeta">📤 COMPARTIR</button>
+            <div class="modal-imagen-container">
+                <img src="" alt="Tarjeta de Invitación" class="modal-imagen" id="imagenTarjeta">
+            </div>
+            <div class="modal-info-container">
+                <div class="modal-info-pago">
+                    <h3>DATOS PARA REGALO</h3>
+                    <div class="modal-dato">
+                        <strong>CBU:</strong>
+                        <span>0000076500000046096683</span>
+                    </div>
+                    <div class="modal-dato">
+                        <strong>ALIAS:</strong>
+                        <span>bodalucreynico</span>
+                    </div>
+                </div>
+                <div class="modal-botones">
+                    <button class="modal-boton" id="descargarTarjeta">📥 DESCARGAR</button>
+                    <button class="modal-boton" id="compartirTarjeta">📤 COMPARTIR</button>
+                </div>
             </div>
         </div>
     </div>
