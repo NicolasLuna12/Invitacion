@@ -12,14 +12,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Lucre y Nico - Nos Casamos">
     <meta property="og:description" content="¡Nos casamos! 💍 06 de Marzo 2026">
-    <meta property="og:image" content="https://lucreynico.dev.ar/og-image.svg">
-    <meta property="og:url" content="https://lucreynico.dev.ar">
+    <meta property="og:image" content="og-image.png">
+    <meta property="og:url" content="https://tudominio.com">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lucre y Nico - Nos Casamos">
     <meta name="twitter:description" content="¡Nos casamos! 💍 06 de Marzo 2026">
-    <meta name="twitter:image" content="https://lucreynico.dev.ar/og-image.svg">
+    <meta name="twitter:image" content="og-image.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -978,25 +978,21 @@
 
         .modal-contenido {
             position: relative;
-            max-width: 480px;
+            max-width: 90%;
             max-height: 90vh;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 0.4s ease-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .modal-imagen {
             width: 100%;
-            max-width: 100%;
+            max-width: 600px;
             height: auto;
             display: block;
             border-radius: 5px;
-            object-fit: contain;
         }
 
         .modal-cerrar {
@@ -1228,7 +1224,7 @@
 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
+                    <input type="tel" id="telefono" name="telefono">
                 </div>
 
                 <div class="form-group form-group-full">
@@ -1274,13 +1270,14 @@
 
     <!-- Right Panel -->
     <div class="form-side-panel form-side-right">
-        <div class="panel-title-form">Lucre y Nico</div>
+        <div class="panel-subtitle-form">Civil</div>
         <div class="divider"></div>
-        <div class="panel-date-form">
-            06<span class="date-separator-form"></span>03<span class="date-separator-form"></span>26
-        </div>
+        <div class="panel-info-form">CPC Nº 14</div>
+        <div class="panel-info-form">Barrio Jardín</div>
+        <div class="panel-info-form">11:00 hs</div>
         <div class="divider"></div>
-        <div class="panel-subtitle-form">Nos Casamos</div>
+        <div class="panel-subtitle-form">¡Festejo!</div>
+        <div class="panel-info-form">A confirmar</div>
     </div>
 </div>
 </div>
@@ -1505,7 +1502,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="acomp-telefono-${i}">Teléfono</label>
-                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}" pattern="[0-9+\-\s()]*" inputmode="numeric" title="Solo se permiten números, +, -, espacios y paréntesis">
+                                <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}">
                             </div>
                         </div>
                         ${botonesHTML}
@@ -1592,30 +1589,6 @@
             }
         }
 
-        // Validación de campos de teléfono - solo números y caracteres permitidos
-        function validarTelefono(input) {
-            input.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9+\-\s()]/g, '');
-            });
-        }
-
-        // Aplicar validación al campo de teléfono principal
-        validarTelefono(document.getElementById('telefono'));
-
-        // Observar cambios en el contenedor de acompañantes para validar nuevos campos
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.nodeType === 1) {
-                        const telefonoInputs = node.querySelectorAll('input[type="tel"]');
-                        telefonoInputs.forEach(validarTelefono);
-                    }
-                });
-            });
-        });
-
-        observer.observe(acompanantesContainer, { childList: true, subtree: true });
-
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -1690,16 +1663,14 @@
 
         // Función para mostrar el modal con la tarjeta
         function mostrarModalTarjeta() {
-            imagenTarjeta.src = 'image.png';
-            modalTarjeta.classList.add('show');
+            const canvas = crearTarjeta();
             
-            // Cargar la imagen y convertirla a blob para descargar/compartir
-            fetch('image.png')
-                .then(response => response.blob())
-                .then(blob => {
-                    tarjetaBlob = blob;
-                })
-                .catch(error => console.error('Error al cargar la imagen:', error));
+            canvas.toBlob(function(blob) {
+                tarjetaBlob = blob;
+                const url = URL.createObjectURL(blob);
+                imagenTarjeta.src = url;
+                modalTarjeta.classList.add('show');
+            });
         }
 
         // Cerrar modal
@@ -1718,12 +1689,16 @@
 
         // Descargar tarjeta desde el modal
         descargarBtn.addEventListener('click', function() {
-            const a = document.createElement('a');
-            a.href = 'image.png';
-            a.download = 'Invitacion-Lucre-y-Nico.png';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            if (tarjetaBlob) {
+                const url = URL.createObjectURL(tarjetaBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Invitacion-Lucre-y-Nico.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
         });
 
         // Compartir tarjeta
