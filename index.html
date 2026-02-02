@@ -446,7 +446,12 @@
             max-width: 1400px;
             transition: transform 0.8s;
             transform-style: preserve-3d;
-            min-height: 100vh;
+        }
+
+        @media (min-width: 1024px) {
+            .card-container {
+                min-height: 100vh;
+            }
         }
 
         .card-container.flipped {
@@ -461,6 +466,12 @@
 
         .card-front {
             position: relative;
+        }
+
+        @media (max-width: 1023px) {
+            .card-container.flipped .card-front {
+                display: none;
+            }
         }
 
         .card-back {
