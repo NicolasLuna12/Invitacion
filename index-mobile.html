@@ -1715,14 +1715,17 @@
 
         // Función para mostrar el modal con la tarjeta
         function mostrarModalTarjeta() {
-            const canvas = crearTarjeta();
+            // Cargar la imagen directamente
+            imagenTarjeta.src = 'image.png';
+            modalTarjeta.classList.add('show');
             
-            canvas.toBlob(function(blob) {
-                tarjetaBlob = blob;
-                const url = URL.createObjectURL(blob);
-                imagenTarjeta.src = url;
-                modalTarjeta.classList.add('show');
-            });
+            // Cargar el blob para descarga/compartir
+            fetch('image.png')
+                .then(response => response.blob())
+                .then(blob => {
+                    tarjetaBlob = blob;
+                })
+                .catch(error => console.error('Error cargando imagen:', error));
         }
 
         // Cerrar modal
