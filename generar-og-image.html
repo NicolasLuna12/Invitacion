@@ -21,42 +21,51 @@
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             
-            // Tamaño para Open Graph
+            // Tamaño óptimo para WhatsApp/Facebook
             canvas.width = 1200;
             canvas.height = 630;
             
-            // Fondo
-            ctx.fillStyle = '#f5f1e8';
+            // Fondo degradado elegante
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#f5f1e8');
+            gradient.addColorStop(1, '#e8dfc8');
+            ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Anillos entrelazados (misma proporción que favicon)
+            // Anillos entrelazados en el centro
             const centerX = canvas.width / 2;
-            const centerY = 315;
-            const ringRadius = 80;
-            const separation = 96; // Proporción del favicon escalada
+            const centerY = canvas.height / 2;
+            const ringRadius = 60;
+            const separation = 72;
             
             // Anillo izquierdo
             ctx.strokeStyle = '#c9a961';
-            ctx.lineWidth = 10;
+            ctx.lineWidth = 8;
             ctx.beginPath();
-            ctx.arc(centerX - separation/2, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.arc(centerX - separation/2, centerY - 40, ringRadius, 0, Math.PI * 2);
             ctx.stroke();
             
             // Anillo derecho
             ctx.beginPath();
-            ctx.arc(centerX + separation/2, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.arc(centerX + separation/2, centerY - 40, ringRadius, 0, Math.PI * 2);
             ctx.stroke();
             
-            // Texto - Nombres
+            // Texto - Nombres (más grande y elegante)
             ctx.fillStyle = '#2a2a2a';
-            ctx.font = '72px "Great Vibes", cursive';
+            ctx.font = 'bold 90px "Great Vibes", cursive';
             ctx.textAlign = 'center';
-            ctx.fillText('Lucre y Nico', centerX, 480);
+            ctx.fillText('Lucre y Nico', centerX, centerY + 100);
+            
+            // Subtítulo
+            ctx.font = '36px "Montserrat", sans-serif';
+            ctx.fillStyle = '#c9a961';
+            ctx.fillText('NOS CASAMOS', centerX, centerY + 160);
             
             // Texto - Fecha
-            ctx.font = '32px "Montserrat", sans-serif';
+            ctx.font = 'bold 42px "Montserrat", sans-serif';
+            ctx.fillStyle = '#2a2a2a';
             ctx.letterSpacing = '8px';
-            ctx.fillText('06 | 03 | 26', centerX, 540);
+            ctx.fillText('06 • 03 • 2026', centerX, centerY + 220);
         };
         
         function descargar() {
