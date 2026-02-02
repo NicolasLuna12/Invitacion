@@ -55,6 +55,12 @@
             display: flex;
             flex-direction: column;
         }
+        
+        @media (max-width: 1023px) {
+            .container {
+                padding: 30px 20px 30px 20px;
+            }
+        }
 
         .panel-left {
             order: 2;
@@ -487,13 +493,36 @@
 
         .card-back {
             transform: rotateY(180deg);
-            background-color: #f5f1e8;
-            pointer-events: none;
+            background-color: white;
         }
 
         @media (max-width: 1023px) {
             .card-back {
-                position: relative;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                transform: translateX(100%);
+                transition: transform 0.6s ease-in-out;
+                z-index: 1000;
+                overflow-y: auto;
+                background-color: white;
+            }
+            
+            .card-back.show {
+                transform: translateX(0);
+            }
+            
+            .form-side-panel {
+                display: none !important;
+            }
+            
+            .form-section {
+                padding: 30px 20px;
+                min-height: 100vh;
+                background-color: white;
+                display: block !important;
             }
         }
 
@@ -505,11 +534,13 @@
                 right: 0;
                 width: 100%;
                 height: 100vh;
+                pointer-events: none;
+                background-color: #f5f1e8;
             }
-        }
-
-        .card-container.flipped .card-back {
-            pointer-events: auto;
+            
+            .card-container.flipped .card-back {
+                pointer-events: auto;
+            }
         }
 
         /* Triptych for form in desktop */
@@ -1179,6 +1210,8 @@
         </div>
     </div>
 </div>
+</div>
+</div>
 
 <!-- Back of Card - Form -->
 <div class="card-face card-back">
@@ -1280,8 +1313,6 @@
         <div class="panel-info-form">A confirmar</div>
     </div>
 </div>
-</div>
-</div>
 
     <!-- Modal para mostrar la tarjeta -->
     <div class="modal-tarjeta" id="modalTarjeta">
@@ -1326,17 +1357,17 @@
         const rsvpButton = document.getElementById('rsvpButton');
         const rsvpButtonCenter = document.querySelector('.rsvp-button-center');
         const backToLanding = document.getElementById('backToLanding');
+        const cardBack = document.querySelector('.card-back');
 
         // Función para manejar el click en ambos botones
         function handleRsvpClick(e) {
             e.preventDefault();
-            // Solo en móvil: scroll al inicio primero
+            
             if (window.innerWidth < 1024) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(() => {
-                    cardContainer.classList.add('flipped');
-                }, 300);
+                // Móvil: mostrar card-back con animación
+                cardBack.classList.add('show');
             } else {
+                // Desktop: flip normal
                 cardContainer.classList.add('flipped');
             }
         }
@@ -1346,12 +1377,13 @@
 
         backToLanding.addEventListener('click', function(e) {
             e.preventDefault();
-            cardContainer.classList.remove('flipped');
-            // Solo en móvil: scroll al inicio después del flip
+            
             if (window.innerWidth < 1024) {
-                setTimeout(() => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 400);
+                // Móvil: ocultar card-back
+                cardBack.classList.remove('show');
+            } else {
+                // Desktop: flip back
+                cardContainer.classList.remove('flipped');
             }
         });
 
