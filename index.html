@@ -745,6 +745,146 @@
         .acompanante-item .form-group {
             margin-bottom: 0;
         }
+
+        .remove-acompanante {
+            background-color: rgba(201, 169, 97, 0.15);
+            border: 2px solid #c9a961;
+            color: #c9a961;
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .remove-acompanante:hover {
+            background-color: #c9a961;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(201, 169, 97, 0.3);
+        }
+
+        .add-another-acompanante {
+            background-color: #c9a961;
+            border: 2px solid #c9a961;
+            color: white;
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .add-another-acompanante:hover {
+            background-color: #b89451;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(201, 169, 97, 0.3);
+        }
+
+        .acompanante-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .acompanante-actions button {
+            flex: 1;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .map-link {
+            display: inline-block;
+            color: #c9a961;
+            text-decoration: none;
+            font-size: 15px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 8px 12px;
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 3px;
+            background-color: rgba(201, 169, 97, 0.05);
+        }
+
+        .map-link:hover {
+            color: white;
+            background-color: #c9a961;
+            border-color: #c9a961;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(201, 169, 97, 0.3);
+        }
+
+        .mini-map {
+            width: 100%;
+            height: 180px;
+            border: 2px solid rgba(201, 169, 97, 0.3);
+            border-radius: 5px;
+            margin-top: 15px;
+            filter: grayscale(20%);
+            transition: all 0.3s ease;
+        }
+
+        .mini-map:hover {
+            filter: grayscale(0%);
+            border-color: #c9a961;
+        }
+
+        .map-link-small {
+            display: block;
+            text-align: center;
+            color: #c9a961;
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .map-link-small:hover {
+            color: #2a2a2a;
+            text-decoration: underline;
+        }
+
+        .no-asistencia-message {
+            background-color: rgba(201, 169, 97, 0.1);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            padding: 15px;
+            border-radius: 3px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #2a2a2a;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -777,6 +917,14 @@
                 <div class="event-info event-location">CPC N° 14 - Barrio Jardín</div>
                 <div class="event-info">Celso Barrios 1825</div>
                 <div class="event-info event-time">11:00 hs</div>
+                <iframe 
+                    class="mini-map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.3868!2d-64.1696701!3d-31.4582576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a3223c1f49fd%3A0x5096e947ce85bdd6!2sCPC%20N%C2%B014%20Jard%C3%ADn!5e0!3m2!1ses!2sar!4v1706824800000!5m2!1ses!2sar" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <a href="https://www.google.com/maps/place/CPC+N%C2%B014+Jard%C3%ADn/@-31.458188,-64.1668622,14.75z/data=!4m15!1m8!3m7!1s0x9432a3223bf42447:0x7a13ac458853675d!2sCelso+Barrios+1825,+X5014+C%C3%B3rdoba,+Argentina!3b1!8m2!3d-31.4581427!4d-64.1696227!16s%2Fg%2F11vlrqmb2y!3m5!1s0x9432a3223c1f49fd:0x5096e947ce85bdd6!8m2!3d-31.4582576!4d-64.1696701!16s%2Fg%2F11h75p_s7s?hl=es-ES&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-link-small">📍 Abrir en Google Maps</a>
             </div>
         </div>
 
@@ -917,16 +1065,19 @@
                             <label for="asiste-no">No podré asistir</label>
                         </div>
                     </div>
+                    <div class="no-asistencia-message" id="noAsistenciaMessage">
+                        Lamentamos que no puedas acompañarnos. ¡Esperamos verte pronto! 💝
+                    </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="acompanantesGroup">
                     <label for="acompanantes">Número de acompañantes</label>
                     <input type="number" id="acompanantes" name="acompanantes" min="0" max="10" value="0">
                 </div>
 
                 <div id="acompanantesContainer" class="form-group-full"></div>
 
-                <div class="form-group form-group-full">
+                <div class="form-group form-group-full" id="mensajeGroup">
                     <label for="mensaje">Mensaje para los novios</label>
                     <textarea id="mensaje" name="mensaje" placeholder="Deja un mensaje especial..."></textarea>
                 </div>
@@ -1004,15 +1155,126 @@
 
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6u0sSzcC0Jt14bQPGlHwRdaC0ZMEyJE16DnDn4ElhpCU4H_eaGY6JVzvISL726gk4Sg/exec';
 
+        // Validación DNI argentino
+        function validarDNI(input) {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length > 8) {
+                    this.value = this.value.slice(0, 8);
+                }
+            });
+            
+            input.addEventListener('blur', function(e) {
+                if (this.value && (this.value.length < 7 || this.value.length > 8)) {
+                    this.setCustomValidity('El DNI debe tener 7 u 8 dígitos');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+        }
+
+        // Aplicar validación al DNI principal
+        validarDNI(document.getElementById('dni'));
+
+        // LocalStorage - Guardar datos del formulario
+        function guardarEnLocalStorage() {
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                dni: document.getElementById('dni').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+            localStorage.setItem('invitacionBoda', JSON.stringify(formData));
+        }
+
+        // Cargar datos desde localStorage
+        function cargarDesdeLocalStorage() {
+            const saved = localStorage.getItem('invitacionBoda');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.nombre) document.getElementById('nombre').value = data.nombre;
+                if (data.dni) document.getElementById('dni').value = data.dni;
+                if (data.email) document.getElementById('email').value = data.email;
+                if (data.telefono) document.getElementById('telefono').value = data.telefono;
+                if (data.mensaje) document.getElementById('mensaje').value = data.mensaje;
+            }
+        }
+
+        // Cargar datos al abrir el formulario
+        cargarDesdeLocalStorage();
+
+        // Guardar mientras escribe
+        ['nombre', 'dni', 'email', 'telefono', 'mensaje'].forEach(id => {
+            document.getElementById(id).addEventListener('input', guardarEnLocalStorage);
+        });
+
+        // Toggle campos según asistencia
+        const asisteNo = document.getElementById('asiste-no');
+        const asisteSi = document.getElementById('asiste-si');
+        const noAsistenciaMessage = document.getElementById('noAsistenciaMessage');
+        const acompanantesGroup = document.getElementById('acompanantesGroup');
+        const mensajeGroup = document.getElementById('mensajeGroup');
+
+        function toggleAsistencia() {
+            if (asisteNo.checked) {
+                noAsistenciaMessage.style.display = 'block';
+                acompanantesGroup.style.display = 'none';
+                acompanantesContainer.innerHTML = '';
+                acompanantesInput.value = '0';
+                mensajeGroup.style.display = 'none';
+            } else if (asisteSi.checked) {
+                noAsistenciaMessage.style.display = 'none';
+                acompanantesGroup.style.display = 'block';
+                mensajeGroup.style.display = 'block';
+            }
+        }
+
+        asisteNo.addEventListener('change', toggleAsistencia);
+        asisteSi.addEventListener('change', toggleAsistencia);
+
         // Generar campos para acompañantes
-        acompanantesInput.addEventListener('input', function() {
-            const numAcompanantes = parseInt(this.value) || 0;
+        function generarCamposAcompanantes() {
+            const numAcompanantes = parseInt(acompanantesInput.value) || 0;
+            
+            // Guardar datos existentes antes de regenerar
+            const datosExistentes = [];
+            const acompanantesActuales = acompanantesContainer.querySelectorAll('.acompanante-item');
+            acompanantesActuales.forEach((item, idx) => {
+                const i = idx + 1;
+                const nombre = document.getElementById(`acomp-nombre-${i}`);
+                const apellido = document.getElementById(`acomp-apellido-${i}`);
+                const dni = document.getElementById(`acomp-dni-${i}`);
+                const telefono = document.getElementById(`acomp-telefono-${i}`);
+                
+                if (nombre) {
+                    datosExistentes.push({
+                        nombre: nombre.value,
+                        apellido: apellido.value,
+                        dni: dni.value,
+                        telefono: telefono.value
+                    });
+                }
+            });
+            
             acompanantesContainer.innerHTML = '';
 
             if (numAcompanantes > 0) {
                 for (let i = 1; i <= numAcompanantes; i++) {
+                    const esUltimo = (i === numAcompanantes);
                     const acompananteDiv = document.createElement('div');
                     acompananteDiv.className = 'acompanante-item';
+                    acompananteDiv.dataset.index = i;
+                    
+                    const botonesHTML = esUltimo && numAcompanantes < 10 ? `
+                        <div class="acompanante-actions">
+                            <button type="button" class="remove-acompanante" onclick="eliminarAcompanante(${i})">✕ Eliminar</button>
+                            <button type="button" class="add-another-acompanante" onclick="agregarOtroAcompanante()">+ Agregar otro</button>
+                        </div>
+                    ` : `
+                        <button type="button" class="remove-acompanante" onclick="eliminarAcompanante(${i})">✕ Eliminar</button>
+                    `;
+                    
                     acompananteDiv.innerHTML = `
                         <div class="acompanante-title">Acompañante ${i}</div>
                         <div class="acompanante-fields">
@@ -1033,17 +1295,95 @@
                                 <input type="tel" id="acomp-telefono-${i}" name="acomp-telefono-${i}">
                             </div>
                         </div>
+                        ${botonesHTML}
                     `;
                     acompanantesContainer.appendChild(acompananteDiv);
+                    
+                    // Aplicar validación DNI al campo del acompañante
+                    validarDNI(document.getElementById(`acomp-dni-${i}`));
+                    
+                    // Restaurar datos si existen
+                    if (datosExistentes[i - 1]) {
+                        document.getElementById(`acomp-nombre-${i}`).value = datosExistentes[i - 1].nombre;
+                        document.getElementById(`acomp-apellido-${i}`).value = datosExistentes[i - 1].apellido;
+                        document.getElementById(`acomp-dni-${i}`).value = datosExistentes[i - 1].dni;
+                        document.getElementById(`acomp-telefono-${i}`).value = datosExistentes[i - 1].telefono;
+                    }
                 }
             }
-        });
+        }
+
+        acompanantesInput.addEventListener('input', generarCamposAcompanantes);
+
+        // Función para agregar otro acompañante (global para onclick)
+        window.agregarOtroAcompanante = function() {
+            const currentValue = parseInt(acompanantesInput.value) || 0;
+            if (currentValue < 10) {
+                acompanantesInput.value = currentValue + 1;
+                generarCamposAcompanantes();
+            }
+        }
+
+        // Función para eliminar acompañante (global para onclick)
+        window.eliminarAcompanante = function(index) {
+            const nombreInput = document.getElementById(`acomp-nombre-${index}`);
+            const hayDatos = nombreInput && nombreInput.value.trim() !== '';
+            
+            if (hayDatos) {
+                if (!confirm('¿Estás seguro de eliminar este acompañante? Se perderán los datos ingresados.')) {
+                    return;
+                }
+            }
+            
+            const currentValue = parseInt(acompanantesInput.value) || 0;
+            if (currentValue > 0) {
+                // Guardar datos de todos los acompañantes excepto el eliminado
+                const datosGuardados = [];
+                for (let i = 1; i <= currentValue; i++) {
+                    if (i !== index) {
+                        const nombre = document.getElementById(`acomp-nombre-${i}`);
+                        const apellido = document.getElementById(`acomp-apellido-${i}`);
+                        const dni = document.getElementById(`acomp-dni-${i}`);
+                        const telefono = document.getElementById(`acomp-telefono-${i}`);
+                        
+                        if (nombre) {
+                            datosGuardados.push({
+                                nombre: nombre.value,
+                                apellido: apellido.value,
+                                dni: dni.value,
+                                telefono: telefono.value
+                            });
+                        }
+                    }
+                }
+                
+                // Reducir el contador
+                acompanantesInput.value = currentValue - 1;
+                
+                // Regenerar campos
+                generarCamposAcompanantes();
+                
+                // Restaurar datos guardados
+                datosGuardados.forEach((datos, idx) => {
+                    const nuevoIndex = idx + 1;
+                    const nombre = document.getElementById(`acomp-nombre-${nuevoIndex}`);
+                    const apellido = document.getElementById(`acomp-apellido-${nuevoIndex}`);
+                    const dni = document.getElementById(`acomp-dni-${nuevoIndex}`);
+                    const telefono = document.getElementById(`acomp-telefono-${nuevoIndex}`);
+                    
+                    if (nombre) nombre.value = datos.nombre;
+                    if (apellido) apellido.value = datos.apellido;
+                    if (dni) dni.value = datos.dni;
+                    if (telefono) telefono.value = datos.telefono;
+                });
+            }
+        }
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             submitButton.disabled = true;
-            submitButton.textContent = 'ENVIANDO...';
+            submitButton.innerHTML = 'ENVIANDO<span class="spinner"></span>';
 
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
@@ -1085,6 +1425,7 @@
                 successMessage.style.display = 'block';
                 form.reset();
                 acompanantesContainer.innerHTML = '';
+                localStorage.removeItem('invitacionBoda');
                 
                 setTimeout(() => {
                     cardContainer.classList.remove('flipped');
