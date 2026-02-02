@@ -86,6 +86,8 @@
             .panel-left {
                 border-right: 1px solid rgba(201, 169, 97, 0.3);
                 order: 1;
+                justify-content: flex-start;
+                padding-top: 175px;
             }
 
             .panel-center {
@@ -173,57 +175,76 @@
             width: 120px;
             height: 1px;
             background-color: #c9a961;
-            margin: 40px auto;
+            margin: 8px auto;
         }
 
         /* Event Details */
         .event-details {
-            margin: 50px 0;
+            margin: 3px 0;
             animation: fadeInUp 2s ease-out;
+        }
+
+        .panel-right .event-details:first-child {
+            margin-top: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .panel-left .event-details:first-child {
+                margin-top: 480px;
+            }
+
+            .panel-right .event-details:first-child {
+                margin-top: 80px;
+            }
+
+            .panel-right .party {
+                margin-top: 5px;
+            }
         }
 
         .event-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            letter-spacing: 6px;
-            margin-bottom: 20px;
+            font-size: 16px;
+            letter-spacing: 5px;
+            margin-bottom: 6px;
             font-weight: 500;
         }
 
         .event-info {
-            font-size: 20px;
-            line-height: 1.8;
-            margin-bottom: 10px;
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 3px;
         }
 
         .event-location {
             font-weight: 500;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .event-time {
-            font-size: 22px;
-            margin-top: 15px;
+            font-size: 20px;
+            margin-top: 5px;
             font-weight: 500;
         }
 
         /* Party Section */
         .party {
-            margin: 50px 0;
+            margin: 3px 0;
             animation: fadeInUp 2.5s ease-out;
         }
 
         .party-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            letter-spacing: 6px;
-            margin-bottom: 15px;
+            font-size: 16px;
+            letter-spacing: 5px;
+            margin-bottom: 6px;
             font-weight: 500;
         }
 
         .party-info {
-            font-size: 20px;
-            font-style: italic;
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 3px;
         }
 
         /* Dots Decoration */
@@ -231,7 +252,7 @@
             display: flex;
             justify-content: center;
             gap: 3px;
-            margin: 40px 0;
+            margin: 8px 0;
         }
 
         .dot {
@@ -245,6 +266,21 @@
         .rsvp-section {
             margin-top: 60px;
             animation: fadeInUp 3s ease-out;
+        }
+
+        .rsvp-center {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .rsvp-center {
+                display: block;
+                margin-top: 30px;
+            }
+
+            .rsvp-mobile {
+                display: none;
+            }
         }
 
         .rsvp-button {
@@ -860,12 +896,14 @@
 
         .mini-map {
             width: 100%;
-            height: 180px;
+            height: 140px;
             border: 2px solid rgba(201, 169, 97, 0.3);
             border-radius: 5px;
-            margin-top: 15px;
+            margin-top: 8px;
+            margin-bottom: 5px;
             filter: grayscale(20%);
             transition: all 0.3s ease;
+            display: block;
         }
 
         .mini-map:hover {
@@ -900,6 +938,106 @@
             font-size: 14px;
             color: #2a2a2a;
             display: none;
+        }
+
+        /* Modal de la tarjeta */
+        .modal-tarjeta {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-tarjeta.show {
+            display: flex;
+        }
+
+        .modal-contenido {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .modal-imagen {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .modal-cerrar {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background: #c9a961;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-cerrar:hover {
+            background: #b89451;
+            transform: rotate(90deg);
+        }
+
+        .modal-botones {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-boton {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 12px 30px;
+            background-color: #c9a961;
+            color: white;
+            border: 2px solid #c9a961;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .modal-boton:hover {
+            background-color: transparent;
+            color: #c9a961;
+        }
+
+        @media (max-width: 768px) {
+            .modal-contenido {
+                max-width: 95%;
+                padding: 15px;
+            }
+
+            .modal-imagen {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -939,7 +1077,6 @@
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
-                <a href="https://www.google.com/maps/place/CPC+N%C2%B014+Jard%C3%ADn/@-31.458188,-64.1668622,14.75z/data=!4m15!1m8!3m7!1s0x9432a3223bf42447:0x7a13ac458853675d!2sCelso+Barrios+1825,+X5014+C%C3%B3rdoba,+Argentina!3b1!8m2!3d-31.4581427!4d-64.1696227!16s%2Fg%2F11vlrqmb2y!3m5!1s0x9432a3223c1f49fd:0x5096e947ce85bdd6!8m2!3d-31.4582576!4d-64.1696701!16s%2Fg%2F11h75p_s7s?hl=es-ES&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-link-small">📍 Abrir en Google Maps</a>
             </div>
         </div>
 
@@ -977,39 +1114,49 @@
                     </div>
                 </div>
             </div>
+
+            <!-- RSVP Button - Desktop only -->
+            <div class="rsvp-section rsvp-center">
+                <a href="#" class="rsvp-button rsvp-button-center">CONFIRMAR ASISTENCIA</a>
+            </div>
         </div>
 
         <!-- Right Panel -->
         <div class="panel panel-right">
-            <!-- Party -->
-            <div class="party">
-                <div class="party-title">¡FESTEJO!</div>
-                <div class="party-info">A confirmar</div>
+            <!-- Iglesia -->
+            <div class="event-details">
+                <div class="event-title">IGLESIA</div>
+                <div class="event-info event-location">Capilla Ntra. Sra. de la Esperanza</div>
+                <div class="event-info">Soria esq. Palaver, Inaudi</div>
+                <div class="event-info event-time">19:00 hs</div>
+                <iframe 
+                    class="mini-map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d848.7!2d-64.192139!3d-31.4768935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a30b208fe941%3A0x474ccc9b0103af32!2sCapilla%20Nuestra%20Se%C3%B1ora%20de%20la%20Esperanza!5e0!3m2!1ses!2sar!4v1706824950000!5m2!1ses!2sar" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
 
             <div class="divider"></div>
 
-            <!-- Decorative dots -->
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <!-- Party -->
+            <div class="party">
+                <div class="party-title">¡FESTEJO!</div>
+                <div class="party-info event-location">S.U.M TORRES GAMA</div>
+                <div class="party-info">Av. Colón 5034</div>
+                <div class="party-info event-time">20:00 - 03:00 hs</div>
+                <iframe 
+                    class="mini-map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3404.8!2d-64.1891!3d-31.4182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a29b8c0e1111%3A0x1111111111111111!2sAv.%20Col%C3%B3n%205034%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1706824900000!5m2!1ses!2sar" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
 
-            <!-- RSVP Button -->
-            <div class="rsvp-section">
+            <!-- RSVP Button - Mobile only -->
+            <div class="rsvp-section rsvp-mobile">
                 <a href="#" class="rsvp-button" id="rsvpButton">CONFIRMAR ASISTENCIA</a>
             </div>
         </div>
@@ -1119,6 +1266,18 @@
 </div>
 </div>
 
+    <!-- Modal para mostrar la tarjeta -->
+    <div class="modal-tarjeta" id="modalTarjeta">
+        <div class="modal-contenido">
+            <button class="modal-cerrar" id="cerrarModal">&times;</button>
+            <img src="" alt="Tarjeta de Invitación" class="modal-imagen" id="imagenTarjeta">
+            <div class="modal-botones">
+                <button class="modal-boton" id="descargarTarjeta">📥 DESCARGAR</button>
+                <button class="modal-boton" id="compartirTarjeta">📤 COMPARTIR</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Countdown Timer
         const weddingDate = new Date('2026-03-06T11:00:00').getTime();
@@ -1148,9 +1307,11 @@
         // Card Flip Functionality
         const cardContainer = document.getElementById('cardContainer');
         const rsvpButton = document.getElementById('rsvpButton');
+        const rsvpButtonCenter = document.querySelector('.rsvp-button-center');
         const backToLanding = document.getElementById('backToLanding');
 
-        rsvpButton.addEventListener('click', function(e) {
+        // Función para manejar el click en ambos botones
+        function handleRsvpClick(e) {
             e.preventDefault();
             // Solo en móvil: scroll al inicio primero
             if (window.innerWidth < 1024) {
@@ -1161,7 +1322,10 @@
             } else {
                 cardContainer.classList.add('flipped');
             }
-        });
+        }
+
+        rsvpButton.addEventListener('click', handleRsvpClick);
+        rsvpButtonCenter.addEventListener('click', handleRsvpClick);
 
         backToLanding.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1456,8 +1620,10 @@
                 acompanantesContainer.innerHTML = '';
                 localStorage.removeItem('invitacionBoda');
                 
+                // Mostrar modal con la tarjeta
+                mostrarModalTarjeta();
+                
                 setTimeout(() => {
-                    cardContainer.classList.remove('flipped');
                     successMessage.style.display = 'none';
                 }, 3000);
 
@@ -1469,6 +1635,187 @@
                 submitButton.textContent = 'CONFIRMAR';
             }
         });
+
+        // Elementos del modal
+        const modalTarjeta = document.getElementById('modalTarjeta');
+        const cerrarModal = document.getElementById('cerrarModal');
+        const imagenTarjeta = document.getElementById('imagenTarjeta');
+        const descargarBtn = document.getElementById('descargarTarjeta');
+        const compartirBtn = document.getElementById('compartirTarjeta');
+        let tarjetaBlob = null;
+
+        // Función para mostrar el modal con la tarjeta
+        function mostrarModalTarjeta() {
+            const canvas = crearTarjeta();
+            
+            canvas.toBlob(function(blob) {
+                tarjetaBlob = blob;
+                const url = URL.createObjectURL(blob);
+                imagenTarjeta.src = url;
+                modalTarjeta.classList.add('show');
+            });
+        }
+
+        // Cerrar modal
+        cerrarModal.addEventListener('click', function() {
+            modalTarjeta.classList.remove('show');
+            cardContainer.classList.remove('flipped');
+        });
+
+        // Cerrar modal al hacer click fuera
+        modalTarjeta.addEventListener('click', function(e) {
+            if (e.target === modalTarjeta) {
+                modalTarjeta.classList.remove('show');
+                cardContainer.classList.remove('flipped');
+            }
+        });
+
+        // Descargar tarjeta desde el modal
+        descargarBtn.addEventListener('click', function() {
+            if (tarjetaBlob) {
+                const url = URL.createObjectURL(tarjetaBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Invitacion-Lucre-y-Nico.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        });
+
+        // Compartir tarjeta
+        compartirBtn.addEventListener('click', async function() {
+            if (navigator.share && tarjetaBlob) {
+                try {
+                    const file = new File([tarjetaBlob], 'Invitacion-Lucre-y-Nico.png', { type: 'image/png' });
+                    await navigator.share({
+                        title: 'Invitación - Lucre y Nico',
+                        text: '¡Nos casamos! 💍',
+                        files: [file]
+                    });
+                } catch (error) {
+                    console.log('Error al compartir:', error);
+                }
+            } else {
+                // Fallback: descargar si no hay soporte para compartir
+                descargarBtn.click();
+            }
+        });
+
+        // Función para crear la tarjeta
+        function crearTarjeta() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Tamaño de la tarjeta
+            canvas.width = 800;
+            canvas.height = 1200;
+            
+            // Fondo
+            ctx.fillStyle = '#f5f1e8';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Texto "NOS CASAMOS" en arco
+            ctx.fillStyle = '#2a2a2a';
+            ctx.font = '600 18px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            const text = 'NOS CASAMOS';
+            const radius = 180;
+            const angleStep = 0.12;
+            const startAngle = -Math.PI / 2 - (text.length * angleStep) / 2;
+            
+            ctx.save();
+            ctx.translate(canvas.width / 2, 200);
+            for (let i = 0; i < text.length; i++) {
+                ctx.save();
+                ctx.rotate(startAngle + i * angleStep);
+                ctx.translate(0, -radius);
+                ctx.fillText(text[i], 0, 0);
+                ctx.restore();
+            }
+            ctx.restore();
+            
+            // Dibujar los anillos
+            const centerX = canvas.width / 2;
+            const centerY = 280;
+            const ringRadius = 50;
+            const ringWidth = 4;
+            
+            // Anillo izquierdo
+            ctx.strokeStyle = '#c9a961';
+            ctx.lineWidth = ringWidth;
+            ctx.beginPath();
+            ctx.arc(centerX - 25, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Anillo derecho
+            ctx.beginPath();
+            ctx.arc(centerX + 25, centerY, ringRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Nombres
+            ctx.fillStyle = '#2a2a2a';
+            ctx.font = '400 80px "Great Vibes", cursive';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lucre y Nico', centerX, 450);
+            
+            // Fecha
+            ctx.font = '300 72px Montserrat, sans-serif';
+            ctx.fillText('06', centerX - 150, 580);
+            
+            // Separador 1
+            ctx.fillRect(centerX - 70, 555, 3, 50);
+            
+            ctx.fillText('03', centerX, 580);
+            
+            // Separador 2
+            ctx.fillRect(centerX + 70, 555, 3, 50);
+            
+            ctx.fillText('26', centerX + 150, 580);
+            
+            // Línea divisoria
+            ctx.fillStyle = '#c9a961';
+            ctx.fillRect(centerX - 80, 640, 160, 2);
+            
+            // ¡FESTEJO!
+            ctx.fillStyle = '#2a2a2a';
+            ctx.font = '500 24px Montserrat, sans-serif';
+            ctx.letterSpacing = '8px';
+            ctx.fillText('¡FESTEJO!', centerX, 720);
+            
+            // Información del festejo
+            ctx.font = '400 22px "Cormorant Garamond", serif';
+            ctx.fillText('S.U.M TORRES GAMA', centerX, 770);
+            ctx.fillText('Av. Colón 5034', centerX, 810);
+            ctx.fillText('20:00 - 03:00', centerX, 850);
+            
+            // Texto regalo
+            ctx.font = '500 16px Montserrat, sans-serif';
+            ctx.fillText('NO QUEREMOS REGALO, NOS AYUDAS A CELEBRARLO', centerX, 920, 700);
+            ctx.fillText('CON VOS?', centerX, 945);
+            
+            // CBU y datos
+            ctx.font = '400 18px "Cormorant Garamond", serif';
+            ctx.fillText('CBU: 0000076500000046096683', centerX, 990);
+            ctx.fillText('ALIAS: bodalucreynico', centerX, 1020);
+            ctx.font = '400 15px "Cormorant Garamond", serif';
+            ctx.fillText('CARLOS ALBERTO NICOLAS LUNA (CUIL 20-35573365-4)', centerX, 1050);
+            
+            // Línea de puntos
+            ctx.fillStyle = '#c9a961';
+            for (let i = 0; i < 40; i++) {
+                ctx.fillRect(centerX - 200 + i * 12, 1095, 4, 2);
+            }
+            
+            // CONFIRMAR ASISTENCIA
+            ctx.fillStyle = '#2a2a2a';
+            ctx.font = '500 20px Montserrat, sans-serif';
+            ctx.fillText('CONFIRMAR ASISTENCIA', centerX, 1140);
+            
+            // Retornar el canvas
+            return canvas;
+        }
     </script>
 </body>
 </html>
