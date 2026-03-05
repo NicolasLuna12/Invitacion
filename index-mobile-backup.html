@@ -1477,14 +1477,21 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (daysEl) daysEl.textContent = days;
+            if (hoursEl) hoursEl.textContent = hours;
+            if (minutesEl) minutesEl.textContent = minutes;
+            if (secondsEl) secondsEl.textContent = seconds;
 
             if (distance < 0) {
                 // Ocultar countdown y mensajes festivos
-                document.querySelector('.countdown').style.display = 'none';
+                const countdown = document.querySelector('.countdown');
+                if (countdown) countdown.style.display = 'none';
+                
                 const festiveMessages = document.querySelectorAll('.festive-message');
                 festiveMessages.forEach(msg => msg.style.display = 'none');
                 
@@ -1517,6 +1524,8 @@
 
         // Validación DNI argentino
         function validarDNI(input) {
+            if (!input) return;
+            
             input.addEventListener('input', function(e) {
                 this.value = this.value.replace(/[^0-9]/g, '');
                 if (this.value.length > 8) {
