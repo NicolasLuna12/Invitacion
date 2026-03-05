@@ -1565,8 +1565,11 @@
             });
         }
 
-        // Aplicar validación al DNI principal
-        validarDNI(document.getElementById('dni'));
+        // Aplicar validación al DNI principal solo si existe
+        const dniInput = document.getElementById('dni');
+        if (dniInput) {
+            validarDNI(dniInput);
+        }
 
         // LocalStorage - Guardar datos del formulario
         function guardarEnLocalStorage() {
@@ -2047,25 +2050,30 @@
             document.getElementById('quickPhoto').click();
         }
 
-        document.getElementById('quickPhoto').addEventListener('change', function(e) {
-            console.log('Evento change disparado');
-            const file = e.target.files[0];
-            console.log('Archivo seleccionado:', file);
-            
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    console.log('Imagen cargada en reader');
-                    const img = document.getElementById('quickPreviewImg');
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        console.log('Imagen renderizada, mostrando preview');
-                        document.getElementById('quickPreview').style.display = 'block';
-                    };
-                };
-                reader.readAsDataURL(file);
-            } else {
-                console.log('No se seleccionó archivo');
+        document.addEventListener('DOMContentLoaded', function() {
+            const quickPhotoInput = document.getElementById('quickPhoto');
+            if (quickPhotoInput) {
+                quickPhotoInput.addEventListener('change', function(e) {
+                    console.log('Evento change disparado');
+                    const file = e.target.files[0];
+                    console.log('Archivo seleccionado:', file);
+                    
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            console.log('Imagen cargada en reader');
+                            const img = document.getElementById('quickPreviewImg');
+                            img.src = e.target.result;
+                            img.onload = function() {
+                                console.log('Imagen renderizada, mostrando preview');
+                                document.getElementById('quickPreview').style.display = 'block';
+                            };
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        console.log('No se seleccionó archivo');
+                    }
+                });
             }
         });
 
