@@ -1583,12 +1583,20 @@
 
         // LocalStorage - Guardar datos del formulario
         function guardarEnLocalStorage() {
+            const nombreEl = document.getElementById('nombre');
+            const dniEl = document.getElementById('dni');
+            const emailEl = document.getElementById('email');
+            const telefonoEl = document.getElementById('telefono');
+            const mensajeEl = document.getElementById('mensaje');
+            
+            if (!nombreEl || !dniEl || !emailEl || !telefonoEl || !mensajeEl) return;
+            
             const formData = {
-                nombre: document.getElementById('nombre').value,
-                dni: document.getElementById('dni').value,
-                email: document.getElementById('email').value,
-                telefono: document.getElementById('telefono').value,
-                mensaje: document.getElementById('mensaje').value
+                nombre: nombreEl.value,
+                dni: dniEl.value,
+                email: emailEl.value,
+                telefono: telefonoEl.value,
+                mensaje: mensajeEl.value
             };
             localStorage.setItem('invitacionBoda', JSON.stringify(formData));
         }
@@ -1598,11 +1606,17 @@
             const saved = localStorage.getItem('invitacionBoda');
             if (saved) {
                 const data = JSON.parse(saved);
-                if (data.nombre) document.getElementById('nombre').value = data.nombre;
-                if (data.dni) document.getElementById('dni').value = data.dni;
-                if (data.email) document.getElementById('email').value = data.email;
-                if (data.telefono) document.getElementById('telefono').value = data.telefono;
-                if (data.mensaje) document.getElementById('mensaje').value = data.mensaje;
+                const nombreEl = document.getElementById('nombre');
+                const dniEl = document.getElementById('dni');
+                const emailEl = document.getElementById('email');
+                const telefonoEl = document.getElementById('telefono');
+                const mensajeEl = document.getElementById('mensaje');
+                
+                if (data.nombre && nombreEl) nombreEl.value = data.nombre;
+                if (data.dni && dniEl) dniEl.value = data.dni;
+                if (data.email && emailEl) emailEl.value = data.email;
+                if (data.telefono && telefonoEl) telefonoEl.value = data.telefono;
+                if (data.mensaje && mensajeEl) mensajeEl.value = data.mensaje;
             }
         }
 
@@ -1611,7 +1625,10 @@
 
         // Guardar mientras escribe
         ['nombre', 'dni', 'email', 'telefono', 'mensaje'].forEach(id => {
-            document.getElementById(id).addEventListener('input', guardarEnLocalStorage);
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', guardarEnLocalStorage);
+            }
         });
 
         // Toggle campos según asistencia
@@ -1622,24 +1639,26 @@
         const mensajeGroup = document.getElementById('mensajeGroup');
 
         function toggleAsistencia() {
-            if (asisteNo.checked) {
-                noAsistenciaMessage.style.display = 'block';
-                acompanantesGroup.style.display = 'none';
-                acompanantesContainer.innerHTML = '';
-                acompanantesInput.value = '0';
-                mensajeGroup.style.display = 'none';
-            } else if (asisteSi.checked) {
-                noAsistenciaMessage.style.display = 'none';
-                acompanantesGroup.style.display = 'block';
-                mensajeGroup.style.display = 'block';
+            if (asisteNo && asisteNo.checked) {
+                if (noAsistenciaMessage) noAsistenciaMessage.style.display = 'block';
+                if (acompanantesGroup) acompanantesGroup.style.display = 'none';
+                if (acompanantesContainer) acompanantesContainer.innerHTML = '';
+                if (acompanantesInput) acompanantesInput.value = '0';
+                if (mensajeGroup) mensajeGroup.style.display = 'none';
+            } else if (asisteSi && asisteSi.checked) {
+                if (noAsistenciaMessage) noAsistenciaMessage.style.display = 'none';
+                if (acompanantesGroup) acompanantesGroup.style.display = 'block';
+                if (mensajeGroup) mensajeGroup.style.display = 'block';
             }
         }
 
-        asisteNo.addEventListener('change', toggleAsistencia);
-        asisteSi.addEventListener('change', toggleAsistencia);
+        if (asisteNo) asisteNo.addEventListener('change', toggleAsistencia);
+        if (asisteSi) asisteSi.addEventListener('change', toggleAsistencia);
 
         // Generar campos para acompañantes
         function generarCamposAcompanantes() {
+            if (!acompanantesInput || !acompanantesContainer) return;
+            
             const numAcompanantes = parseInt(acompanantesInput.value) || 0;
             
             // Guardar datos existentes antes de regenerar
@@ -1718,10 +1737,13 @@
             }
         }
 
-        acompanantesInput.addEventListener('input', generarCamposAcompanantes);
+        if (acompanantesInput) {
+            acompanantesInput.addEventListener('input', generarCamposAcompanantes);
+        }
 
         // Función para agregar otro acompañante (global para onclick)
         window.agregarOtroAcompanante = function() {
+            if (!acompanantesInput) return;
             const currentValue = parseInt(acompanantesInput.value) || 0;
             if (currentValue < 10) {
                 acompanantesInput.value = currentValue + 1;
@@ -1731,6 +1753,8 @@
 
         // Función para eliminar acompañante (global para onclick)
         window.eliminarAcompanante = function(index) {
+            if (!acompanantesInput) return;
+            
             const nombreInput = document.getElementById(`acomp-nombre-${index}`);
             const hayDatos = nombreInput && nombreInput.value.trim() !== '';
             
@@ -1784,7 +1808,8 @@
             }
         }
 
-        form.addEventListener('submit', async function(e) {
+        if (form) {
+            form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             submitButton.disabled = true;
@@ -1849,10 +1874,12 @@
                 submitButton.textContent = 'CONFIRMAR';
             }
         });
+        }
 
         // Elementos del modal
         const modalTarjeta = document.getElementById('modalTarjeta');
         const cerrarModal = document.getElementById('cerrarModal');
+        const cardContainer = document.getElementById('cardContainer');
         const imagenTarjeta = document.getElementById('imagenTarjeta');
         const descargarBtn = document.getElementById('descargarTarjeta');
         const compartirBtn = document.getElementById('compartirTarjeta');
@@ -1860,6 +1887,8 @@
 
         // Función para mostrar el modal con la tarjeta
         function mostrarModalTarjeta() {
+            if (!imagenTarjeta || !modalTarjeta) return;
+            
             // Cargar la imagen directamente
             imagenTarjeta.src = 'image.png';
             modalTarjeta.classList.add('show');
@@ -1874,51 +1903,59 @@
         }
 
         // Cerrar modal
-        cerrarModal.addEventListener('click', function() {
-            modalTarjeta.classList.remove('show');
-            cardContainer.classList.remove('flipped');
-        });
+        if (cerrarModal) {
+            cerrarModal.addEventListener('click', function() {
+                if (modalTarjeta) modalTarjeta.classList.remove('show');
+                if (cardContainer) cardContainer.classList.remove('flipped');
+            });
+        }
 
         // Cerrar modal al hacer click fuera
-        modalTarjeta.addEventListener('click', function(e) {
-            if (e.target === modalTarjeta) {
-                modalTarjeta.classList.remove('show');
-                cardContainer.classList.remove('flipped');
-            }
-        });
+        if (modalTarjeta) {
+            modalTarjeta.addEventListener('click', function(e) {
+                if (e.target === modalTarjeta) {
+                    modalTarjeta.classList.remove('show');
+                    if (cardContainer) cardContainer.classList.remove('flipped');
+                }
+            });
+        }
 
         // Descargar tarjeta desde el modal
-        descargarBtn.addEventListener('click', function() {
-            if (tarjetaBlob) {
-                const url = URL.createObjectURL(tarjetaBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Invitacion-Lucre-y-Nico.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
-        });
+        if (descargarBtn) {
+            descargarBtn.addEventListener('click', function() {
+                if (tarjetaBlob) {
+                    const url = URL.createObjectURL(tarjetaBlob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Invitacion-Lucre-y-Nico.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            });
+        }
 
         // Compartir tarjeta
-        compartirBtn.addEventListener('click', async function() {
-            if (navigator.share && tarjetaBlob) {
-                try {
-                    const file = new File([tarjetaBlob], 'Invitacion-Lucre-y-Nico.png', { type: 'image/png' });
-                    await navigator.share({
-                        title: 'Invitación - Lucre y Nico',
-                        text: '¡Nos casamos! 💍',
-                        files: [file]
-                    });
-                } catch (error) {
-                    console.log('Error al compartir:', error);
+        if (compartirBtn) {
+            compartirBtn.addEventListener('click', async function() {
+                if (navigator.share && tarjetaBlob) {
+                    try {
+                        const file = new File([tarjetaBlob], 'Invitacion-Lucre-y-Nico.png', { type: 'image/png' });
+                        await navigator.share({
+                            title: 'Invitación - Lucre y Nico',
+                            text: '¡Nos casamos! 💍',
+                            files: [file]
+                        });
+                    } catch (error) {
+                        console.log('Error al compartir:', error);
+                    }
+                } else {
+                    // Fallback: descargar si no hay soporte para compartir
+                    descargarBtn.click();
                 }
-            } else {
-                // Fallback: descargar si no hay soporte para compartir
-                descargarBtn.click();
-            }
-        });
+            });
+        }
 
         // Función para crear la tarjeta
         function crearTarjeta() {
