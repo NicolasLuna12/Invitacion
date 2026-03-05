@@ -492,6 +492,74 @@
             }
         }
 
+        /* Botón cámara flotante */
+        .camera-float-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #c9a961;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .camera-float-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .camera-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .camera-modal.show {
+            display: flex;
+        }
+
+        .camera-modal-content {
+            background: #f5f1e8;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+        }
+
+        .camera-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #c9a961;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Card Flip Styles */
         .card-wrapper {
             perspective: 2000px;
@@ -1337,6 +1405,27 @@
                     <div class="festive-icons">✨ 🎶 🎉</div>
                 </div>
             </div>
+            
+            <!-- Botón cámara flotante - Solo móvil -->
+            <button class="camera-float-btn" id="cameraBtn" onclick="abrirCamara()">
+                <img src="camera-icon.svg" alt="Cámara" style="width: 28px; height: 28px;">
+            </button>
+            
+            <!-- Modal cámara rápida -->
+            <div class="camera-modal" id="cameraModal">
+                <div class="camera-modal-content">
+                    <button class="camera-modal-close" onclick="cerrarCamara()">&times;</button>
+                    <h3 style="font-family: 'Montserrat', sans-serif; letter-spacing: 2px; margin-bottom: 20px;">📸 COMPARTIR FOTO</h3>
+                    <input type="text" id="quickName" placeholder="Tu nombre" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #c9a961; border-radius: 5px; font-family: 'Cormorant Garamond', serif; font-size: 16px;">
+                    <input type="file" id="quickPhoto" accept="image/*" capture="environment" style="display: none;">
+                    <button onclick="seleccionarFoto()" style="width: 100%; padding: 15px; background: #c9a961; color: white; border: none; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; cursor: pointer;">📷 TOMAR FOTO</button>
+                    <div id="quickPreview" style="margin-top: 15px; display: none;">
+                        <img id="quickPreviewImg" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
+                        <button onclick="subirFotoRapida()" id="quickUploadBtn" style="width: 100%; padding: 15px; background: #c9a961; color: white; border: none; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;">✨ SUBIR</button>
+                    </div>
+                    <div id="quickMessage" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1373,7 +1462,7 @@
 
     <script>
         // Countdown Timer
-        const weddingDate = new Date('2026-03-06T11:00:00').getTime();
+        const weddingDate = new Date('2026-03-04T11:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -1390,7 +1479,20 @@
             document.getElementById('seconds').textContent = seconds;
 
             if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<div class="countdown-item"><span class="countdown-number">¡Hoy es el día!</span></div>';
+                // Ocultar countdown y mensajes festivos
+                document.querySelector('.countdown').style.display = 'none';
+                const festiveMessages = document.querySelectorAll('.festive-message');
+                festiveMessages.forEach(msg => msg.style.display = 'none');
+                
+                // Mostrar botón de cámara
+                const cameraBtn = document.getElementById('cameraBtn');
+                if (cameraBtn) cameraBtn.style.display = 'flex';
+                
+                // Mostrar botón de galería en su lugar
+                const rsvpSections = document.querySelectorAll('.rsvp-section');
+                rsvpSections.forEach(section => {
+                    section.innerHTML = '<a href="galeria.html" class="rsvp-button" style="margin-top: 20px; display: block; width: fit-content; margin-left: auto; margin-right: auto;">📸 Ver Galería</a>';
+                });
             }
         }
 
@@ -1881,6 +1983,108 @@
             
             // Retornar el canvas
             return canvas;
+        }
+
+        // Funciones para cámara rápida
+        const CLOUDINARY_CLOUD_NAME = 'dcijhsehj';
+        const CLOUDINARY_UPLOAD_PRESET = 'boda_lucre_nico';
+        const GOOGLE_SCRIPT_URL_PHOTOS = 'https://script.google.com/macros/s/AKfycbxHNjpcfyjkYSvi1QxeyeqR836GHJQJe9RDATHKByAzDV5UKknJj6iDGpBMV4Ab0KLI/exec';
+
+        function abrirCamara() {
+            document.getElementById('cameraModal').classList.add('show');
+        }
+
+        function cerrarCamara() {
+            document.getElementById('cameraModal').classList.remove('show');
+            document.getElementById('quickName').value = '';
+            document.getElementById('quickPhoto').value = '';
+            document.getElementById('quickPreview').style.display = 'none';
+            document.getElementById('quickMessage').style.display = 'none';
+        }
+
+        function seleccionarFoto() {
+            const nombre = document.getElementById('quickName').value.trim();
+            if (!nombre) {
+                alert('Por favor ingresá tu nombre primero');
+                return;
+            }
+            document.getElementById('quickPhoto').click();
+        }
+
+        document.getElementById('quickPhoto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('quickPreviewImg').src = e.target.result;
+                    document.getElementById('quickPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function subirFotoRapida() {
+            const nombre = document.getElementById('quickName').value.trim();
+            const file = document.getElementById('quickPhoto').files[0];
+            const btn = document.getElementById('quickUploadBtn');
+            const msg = document.getElementById('quickMessage');
+
+            if (!file || !nombre) {
+                msg.textContent = 'Completá todos los campos';
+                msg.style.background = '#f8d7da';
+                msg.style.color = '#721c24';
+                msg.style.display = 'block';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Subiendo...';
+            msg.style.display = 'none';
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+                formData.append('folder', 'boda-lucre-nico');
+
+                const cloudinaryResponse = await fetch(
+                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    { method: 'POST', body: formData }
+                );
+
+                const cloudinaryData = await cloudinaryResponse.json();
+
+                await fetch(GOOGLE_SCRIPT_URL_PHOTOS, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'photo',
+                        nombre: nombre,
+                        url: cloudinaryData.secure_url,
+                        publicId: cloudinaryData.public_id,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                msg.textContent = '¡Foto subida! 🎉';
+                msg.style.background = '#d4edda';
+                msg.style.color = '#155724';
+                msg.style.display = 'block';
+
+                setTimeout(() => {
+                    cerrarCamara();
+                }, 2000);
+
+            } catch (error) {
+                msg.textContent = 'Error al subir. Intentá nuevamente.';
+                msg.style.background = '#f8d7da';
+                msg.style.color = '#721c24';
+                msg.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '✨ SUBIR';
+            }
         }
     </script>
 </body>
