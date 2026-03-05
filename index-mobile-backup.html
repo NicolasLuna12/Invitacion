@@ -347,6 +347,33 @@
             box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
         }
 
+        .festive-message {
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .festive-main-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36px;
+            color: #c9a961;
+            margin: 8px 0;
+        }
+
+        .festive-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #2a2a2a;
+            margin: 6px 0;
+        }
+
+        .festive-icons {
+            font-size: 22px;
+            letter-spacing: 6px;
+            margin: 8px 0;
+        }
+
         /* Countdown Section */
         .countdown {
             margin: 50px 0;
@@ -1255,9 +1282,14 @@
                 </div>
             </div>
 
-            <!-- RSVP Button - Desktop only -->
+            <!-- Festive Message - Desktop only -->
             <div class="rsvp-section rsvp-center">
-                <a href="#" class="rsvp-button rsvp-button-center">CONFIRMAR ASISTENCIA</a>
+                <div class="festive-message">
+                    <div class="festive-icons">🎊 💍 🥂</div>
+                    <div class="festive-main-title">¡Mañana nos casamos!</div>
+                    <div class="festive-sub">Los esperamos para festejar con nosotros</div>
+                    <div class="festive-icons">✨ 🎶 🎉</div>
+                </div>
             </div>
         </div>
 
@@ -1296,116 +1328,21 @@
                 </iframe>
             </div>
 
-            <!-- RSVP Button - Mobile only -->
+            <!-- Festive Message - Mobile only -->
             <div class="rsvp-section rsvp-mobile">
-                <a href="#" class="rsvp-button" id="rsvpButton">CONFIRMAR ASISTENCIA</a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-
-<!-- Back of Card - Form -->
-<div class="card-face card-back">
-    <!-- Left Panel -->
-    <div class="form-side-panel form-side-left">
-        <div class="panel-title-form">Lucre y Nico</div>
-        <div class="divider"></div>
-        <div class="panel-date-form">
-            06<span class="date-separator-form"></span>03<span class="date-separator-form"></span>26
-        </div>
-        <div class="divider"></div>
-        <div class="panel-subtitle-form">Nos Casamos</div>
-    </div>
-
-    <!-- Center Panel - Form -->
-    <div class="form-section">
-        <div class="form-header">
-            <div class="form-title">Lucre y Nico</div>
-            <div class="form-subtitle">CONFIRMAR ASISTENCIA</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="success-message" id="successMessage">
-            ¡Gracias por confirmar! Nos vemos el 06 de marzo 💍
-        </div>
-
-        <div class="error-message" id="errorMessage">
-            Hubo un error al enviar el formulario. Por favor, intenta nuevamente.
-        </div>
-
-        <form id="rsvpForm">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="nombre">Nombre Completo *</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="dni">DNI *</label>
-                    <input type="text" id="dni" name="dni" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono">
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email">
-                </div>
-
-                <div class="form-group">
-                    <label>¿Confirmas tu asistencia? *</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="asiste-si" name="asistencia" value="Sí" required>
-                            <label for="asiste-si">Sí, asistiré</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="asiste-no" name="asistencia" value="No">
-                            <label for="asiste-no">No podré asistir</label>
-                        </div>
-                    </div>
-                    <div class="no-asistencia-message" id="noAsistenciaMessage">
-                        Lamentamos que no puedas acompañarnos. ¡Esperamos verte pronto! 💝
-                    </div>
-                </div>
-
-                <div class="form-group" id="acompanantesGroup">
-                    <label for="acompanantes">Número de acompañantes</label>
-                    <input type="number" id="acompanantes" name="acompanantes" min="0" max="10" value="0">
-                </div>
-
-                <div id="acompanantesContainer" class="form-group-full"></div>
-
-                <div class="form-group form-group-full" id="mensajeGroup">
-                    <label for="mensaje">Mensaje para los novios</label>
-                    <textarea id="mensaje" name="mensaje" placeholder="Deja un mensaje especial..."></textarea>
+                <div class="festive-message">
+                    <div class="festive-icons">🎊 💍 🥂</div>
+                    <div class="festive-main-title">¡Mañana nos casamos!</div>
+                    <div class="festive-sub">Los esperamos para festejar</div>
+                    <div class="festive-icons">✨ 🎶 🎉</div>
                 </div>
             </div>
-
-            <button type="submit" class="submit-button" id="submitButton">CONFIRMAR</button>
-        </form>
-
-        <a class="back-link" id="backToLanding">← Volver a la invitación</a>
-    </div>
-
-    <!-- Right Panel -->
-    <div class="form-side-panel form-side-right">
-        <div class="panel-subtitle-form">Civil</div>
-        <div class="divider"></div>
-        <div class="panel-info-form">CPC Nº 14</div>
-        <div class="panel-info-form">Barrio Jardín</div>
-        <div class="panel-info-form">11:00 hs</div>
-        <div class="divider"></div>
-        <div class="panel-subtitle-form">¡Festejo!</div>
-        <div class="panel-info-form">A confirmar</div>
+        </div>
     </div>
 </div>
+</div>
+</div>
+
 
     <!-- Modal para mostrar la tarjeta -->
     <div class="modal-tarjeta" id="modalTarjeta">
@@ -1460,40 +1397,7 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Card Flip Functionality
-        const cardContainer = document.getElementById('cardContainer');
-        const rsvpButton = document.getElementById('rsvpButton');
-        const rsvpButtonCenter = document.querySelector('.rsvp-button-center');
-        const backToLanding = document.getElementById('backToLanding');
-        const cardBack = document.querySelector('.card-back');
 
-        // Función para manejar el click en ambos botones
-        function handleRsvpClick(e) {
-            e.preventDefault();
-            
-            if (window.innerWidth < 1024) {
-                // Móvil: mostrar card-back con animación
-                cardBack.classList.add('show');
-            } else {
-                // Desktop: flip normal
-                cardContainer.classList.add('flipped');
-            }
-        }
-
-        rsvpButton.addEventListener('click', handleRsvpClick);
-        rsvpButtonCenter.addEventListener('click', handleRsvpClick);
-
-        backToLanding.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (window.innerWidth < 1024) {
-                // Móvil: ocultar card-back
-                cardBack.classList.remove('show');
-            } else {
-                // Desktop: flip back
-                cardContainer.classList.remove('flipped');
-            }
-        });
 
         // Form Functionality
         const form = document.getElementById('rsvpForm');
