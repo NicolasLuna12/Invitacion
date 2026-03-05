@@ -2016,8 +2016,11 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('quickPreviewImg').src = e.target.result;
-                    document.getElementById('quickPreview').style.display = 'block';
+                    const img = document.getElementById('quickPreviewImg');
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        document.getElementById('quickPreview').style.display = 'block';
+                    };
                 };
                 reader.readAsDataURL(file);
             }
