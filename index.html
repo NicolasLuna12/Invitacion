@@ -1456,9 +1456,10 @@
                     <input type="text" id="quickName" placeholder="Tu nombre" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #c9a961; border-radius: 5px; font-family: 'Cormorant Garamond', serif; font-size: 16px; box-sizing: border-box;">
                     <input type="file" id="quickPhoto" accept="image/*" capture="environment" style="display: none;">
                     <button onclick="seleccionarFoto()" style="width: 100%; padding: 15px; background: #c9a961; color: white; border: none; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; cursor: pointer; font-size: 14px;">📷 TOMAR FOTO</button>
-                    <div id="quickPreview" style="margin-top: 15px; display: none;">
-                        <img id="quickPreviewImg" style="width: 100%; border-radius: 5px; margin-bottom: 10px; display: block;">
-                        <button onclick="subirFotoRapida()" id="quickUploadBtn" style="width: 100%; padding: 15px; background: #c9a961; color: white; border: none; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; font-size: 14px;">✨ SUBIR</button>
+                    <div id="quickPreview" style="margin-top: 20px; display: none;">
+                        <p style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 14px; color: #333; margin-bottom: 10px; letter-spacing: 1px;">✨ PREVISUALIZACIÓN</p>
+                        <img id="quickPreviewImg" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: block; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        <button onclick="subirFotoRapida()" id="quickUploadBtn" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #c9a961 0%, #b8954d 100%); color: white; border: none; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px rgba(201, 169, 97, 0.4);">✨ SUBIR FOTO</button>
                     </div>
                     <div id="quickMessage" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none; text-align: center;"></div>
                 </div>
@@ -2059,6 +2060,20 @@
             document.getElementById('quickPhoto').click();
         }
 
+        function mostrarPreview(file) {
+            console.log('Mostrando preview de archivo:', file.name);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                console.log('Imagen cargada');
+                const img = document.getElementById('quickPreviewImg');
+                const preview = document.getElementById('quickPreview');
+                img.src = e.target.result;
+                preview.style.display = 'block';
+                console.log('Preview visible');
+            };
+            reader.readAsDataURL(file);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const quickPhotoInput = document.getElementById('quickPhoto');
             if (quickPhotoInput) {
@@ -2068,17 +2083,7 @@
                     console.log('Archivo seleccionado:', file);
                     
                     if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            console.log('Imagen cargada en reader');
-                            const img = document.getElementById('quickPreviewImg');
-                            img.src = e.target.result;
-                            img.onload = function() {
-                                console.log('Imagen renderizada, mostrando preview');
-                                document.getElementById('quickPreview').style.display = 'block';
-                            };
-                        };
-                        reader.readAsDataURL(file);
+                        mostrarPreview(file);
                     } else {
                         console.log('No se seleccionó archivo');
                     }
