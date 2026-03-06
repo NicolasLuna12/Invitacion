@@ -499,23 +499,25 @@
             justify-content: center;
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            right: 10px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: white;
             border: 2px solid #c9a961;
             font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            z-index: 9999;
             transition: all 0.3s ease;
         }
 
         .camera-float-btn:active {
             transform: scale(0.95);
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
+
+      
 
         .camera-modal {
             display: none;
@@ -1105,179 +1107,6 @@
             color: #2a2a2a;
             display: none;
         }
-
-        /* Modal de la tarjeta */
-        .modal-tarjeta {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-tarjeta.show {
-            display: flex;
-        }
-
-        .modal-contenido {
-            position: relative;
-            background-color: #f5f1e8;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 1000px;
-            max-height: 85vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 30px;
-            align-items: flex-start;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 0.4s ease-out;
-        }
-
-        .modal-imagen-container {
-            flex: 0 0 480px;
-            max-width: 480px;
-        }
-
-        .modal-imagen {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .modal-info-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .modal-cerrar {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 40px;
-            height: 40px;
-            background: #c9a961;
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-cerrar:hover {
-            background: #b89451;
-            transform: rotate(90deg);
-        }
-
-        .modal-info-pago {
-            padding: 25px;
-            background-color: #fff;
-            border-radius: 8px;
-            border: 1px solid #c9a961;
-        }
-
-        .modal-info-pago h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            letter-spacing: 2.5px;
-            color: #2a2a2a;
-            margin-bottom: 18px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .modal-dato {
-            margin: 12px 0;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            color: #2a2a2a;
-            word-break: break-all;
-        }
-
-        .modal-dato strong {
-            font-weight: 600;
-            color: #c9a961;
-            display: block;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .modal-dato span {
-            user-select: all;
-            cursor: text;
-            padding: 12px 14px;
-            background-color: #f5f1e8;
-            border-radius: 5px;
-            display: block;
-            text-align: center;
-            font-size: 17px;
-            font-weight: 500;
-        }
-
-        .modal-botones {
-            display: flex;
-            gap: 12px;
-            flex-direction: column;
-        }
-
-        .modal-boton {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            letter-spacing: 2.5px;
-            padding: 16px 28px;
-            background-color: #c9a961;
-            color: white;
-            border: 2px solid #c9a961;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-            font-weight: 500;
-            width: 100%;
-        }
-
-        .modal-boton:hover {
-            background-color: transparent;
-            color: #c9a961;
-        }
-
-        @media (max-width: 768px) {
-            .modal-contenido {
-                max-width: 95%;
-                padding: 15px;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .modal-imagen-container {
-                min-width: auto;
-            }
-
-            .modal-info-container {
-                flex: 1;
-                width: 100%;
-                align-items: center;
-            }
-
-            .modal-imagen {
-                max-width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1410,11 +1239,6 @@
                 </div>
             </div>
             
-            <!-- Botón cámara flotante - Solo móvil -->
-            <button class="camera-float-btn" id="cameraBtn" onclick="abrirCamara()">
-                <img src="camera-icon.svg" alt="Cámara" style="width: 28px; height: 28px;">
-            </button>
-            
             <!-- Modal cámara rápida -->
             <div class="camera-modal" id="cameraModal">
                 <div class="camera-modal-content">
@@ -1437,33 +1261,10 @@
 </div>
 </div>
 
-
-    <!-- Modal para mostrar la tarjeta -->
-    <div class="modal-tarjeta" id="modalTarjeta">
-        <div class="modal-contenido">
-            <button class="modal-cerrar" id="cerrarModal">&times;</button>
-            <div class="modal-imagen-container">
-                <img src="" alt="Tarjeta de Invitación" class="modal-imagen" id="imagenTarjeta">
-            </div>
-            <div class="modal-info-container">
-                <div class="modal-info-pago">
-                    <h3>DATOS PARA REGALO</h3>
-                    <div class="modal-dato">
-                        <strong>CBU:</strong>
-                        <span>0000076500000046096683</span>
-                    </div>
-                    <div class="modal-dato">
-                        <strong>ALIAS:</strong>
-                        <span>bodalucreynico</span>
-                    </div>
-                </div>
-                <div class="modal-botones">
-                    <button class="modal-boton" id="descargarTarjeta">📥 DESCARGAR</button>
-                    <button class="modal-boton" id="compartirTarjeta">📤 COMPARTIR</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Botón cámara flotante - Fuera de todo contenedor -->
+    <button class="camera-float-btn" id="cameraBtn" onclick="abrirCamara()">
+        <img src="camera-icon.svg" alt="Cámara" style="width: 28px; height: 28px;">
+    </button>
 
     <script>
         // Countdown Timer
@@ -1496,10 +1297,6 @@
                 const festiveMessages = document.querySelectorAll('.festive-message');
                 festiveMessages.forEach(msg => msg.style.display = 'none');
                 
-                // Mostrar botón de cámara
-                const cameraBtn = document.getElementById('cameraBtn');
-                if (cameraBtn) cameraBtn.style.display = 'flex';
-                
                 // Mostrar botón de galería en su lugar
                 const rsvpSections = document.querySelectorAll('.rsvp-section');
                 rsvpSections.forEach(section => {
@@ -1511,7 +1308,11 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-
+        // Mostrar botón de cámara siempre visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const cameraBtn = document.getElementById('cameraBtn');
+            if (cameraBtn) cameraBtn.style.display = 'flex';
+        });
 
         // Form Functionality
         const form = document.getElementById('rsvpForm');
@@ -1825,11 +1626,6 @@
                 acompanantesContainer.innerHTML = '';
                 localStorage.removeItem('invitacionBoda');
                 
-                // Esperar 2 segundos antes de mostrar el modal
-                setTimeout(() => {
-                    mostrarModalTarjeta();
-                }, 2000);
-                
                 setTimeout(() => {
                     successMessage.style.display = 'none';
                 }, 3000);
@@ -1842,87 +1638,6 @@
                 submitButton.textContent = 'CONFIRMAR';
             }
         });
-        }
-
-        // Elementos del modal
-        const modalTarjeta = document.getElementById('modalTarjeta');
-        const cerrarModal = document.getElementById('cerrarModal');
-        const cardContainer = document.getElementById('cardContainer');
-        const imagenTarjeta = document.getElementById('imagenTarjeta');
-        const descargarBtn = document.getElementById('descargarTarjeta');
-        const compartirBtn = document.getElementById('compartirTarjeta');
-        let tarjetaBlob = null;
-
-        // Función para mostrar el modal con la tarjeta
-        function mostrarModalTarjeta() {
-            if (!imagenTarjeta || !modalTarjeta) return;
-            
-            // Cargar la imagen directamente
-            imagenTarjeta.src = 'image.png';
-            modalTarjeta.classList.add('show');
-            
-            // Cargar el blob para descarga/compartir
-            fetch('image.png')
-                .then(response => response.blob())
-                .then(blob => {
-                    tarjetaBlob = blob;
-                })
-                .catch(error => console.error('Error cargando imagen:', error));
-        }
-
-        // Cerrar modal
-        if (cerrarModal) {
-            cerrarModal.addEventListener('click', function() {
-                if (modalTarjeta) modalTarjeta.classList.remove('show');
-                if (cardContainer) cardContainer.classList.remove('flipped');
-            });
-        }
-
-        // Cerrar modal al hacer click fuera
-        if (modalTarjeta) {
-            modalTarjeta.addEventListener('click', function(e) {
-                if (e.target === modalTarjeta) {
-                    modalTarjeta.classList.remove('show');
-                    if (cardContainer) cardContainer.classList.remove('flipped');
-                }
-            });
-        }
-
-        // Descargar tarjeta desde el modal
-        if (descargarBtn) {
-            descargarBtn.addEventListener('click', function() {
-                if (tarjetaBlob) {
-                    const url = URL.createObjectURL(tarjetaBlob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Invitacion-Lucre-y-Nico.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }
-            });
-        }
-
-        // Compartir tarjeta
-        if (compartirBtn) {
-            compartirBtn.addEventListener('click', async function() {
-                if (navigator.share && tarjetaBlob) {
-                    try {
-                        const file = new File([tarjetaBlob], 'Invitacion-Lucre-y-Nico.png', { type: 'image/png' });
-                        await navigator.share({
-                            title: 'Invitación - Lucre y Nico',
-                            text: '¡Nos casamos! 💍',
-                            files: [file]
-                        });
-                    } catch (error) {
-                        console.log('Error al compartir:', error);
-                    }
-                } else {
-                    // Fallback: descargar si no hay soporte para compartir
-                    descargarBtn.click();
-                }
-            });
         }
 
         // Función para crear la tarjeta
@@ -2045,7 +1760,8 @@
         const GOOGLE_SCRIPT_URL_PHOTOS = 'https://script.google.com/macros/s/AKfycbxHNjpcfyjkYSvi1QxeyeqR836GHJQJe9RDATHKByAzDV5UKknJj6iDGpBMV4Ab0KLI/exec';
 
         function abrirCamara() {
-            document.getElementById('cameraModal').classList.add('show');
+            // Abrir directamente la cámara sin modal
+            document.getElementById('quickPhoto').click();
         }
 
         function cerrarCamara() {
@@ -2057,11 +1773,7 @@
         }
 
         function seleccionarFoto() {
-            const nombre = document.getElementById('quickName').value.trim();
-            if (!nombre) {
-                alert('Por favor ingresá tu nombre primero');
-                return;
-            }
+            // Abrir la cámara directamente sin validar nombre
             document.getElementById('quickPhoto').click();
         }
 
@@ -2089,6 +1801,8 @@
                     
                     if (file) {
                         mostrarPreview(file);
+                        // Mostrar el modal después de seleccionar la foto
+                        document.getElementById('cameraModal').classList.add('show');
                     } else {
                         console.log('No se seleccionó archivo');
                     }
@@ -2097,13 +1811,14 @@
         });
 
         async function subirFotoRapida() {
-            const nombre = document.getElementById('quickName').value.trim();
+            const nombreInput = document.getElementById('quickName').value.trim();
+            const nombre = nombreInput || 'Invitado'; // Usar "Invitado" si no hay nombre
             const file = document.getElementById('quickPhoto').files[0];
             const btn = document.getElementById('quickUploadBtn');
             const msg = document.getElementById('quickMessage');
 
-            if (!file || !nombre) {
-                msg.textContent = 'Completá todos los campos';
+            if (!file) {
+                msg.textContent = 'Por favor seleccioná una foto';
                 msg.style.background = '#f8d7da';
                 msg.style.color = '#721c24';
                 msg.style.display = 'block';
